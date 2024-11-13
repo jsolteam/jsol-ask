@@ -1,7 +1,8 @@
 package config
 
 import (
-	"log"
+	"fmt"
+	"jsol-ask/utils"
 	"os"
 	"strconv"
 
@@ -20,7 +21,7 @@ type Config struct {
 func LoadConfig() *Config {
 	// Load environment variables from the .env file
 	if err := godotenv.Load(); err != nil {
-		log.Panic("Error loading .env file: file not found!")
+		utils.Log(utils.PanicLog, utils.SystemModule, "Error loading .env file: file not found!")
 	}
 
 	config := &Config{
@@ -38,7 +39,7 @@ func LoadConfig() *Config {
 func getEnvOrPanic(key string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists || value == "" {
-		log.Panicf("Environment variable %s is not set or empty", key)
+		utils.Log(utils.PanicLog, utils.SystemModule, fmt.Sprintf("Environment variable %s is not set or empty", key))
 	}
 	return value
 }
@@ -48,7 +49,7 @@ func parseUintEnv(key string, bitSize int) uint64 {
 	valueStr := getEnvOrPanic(key)
 	value, err := strconv.ParseUint(valueStr, 10, bitSize)
 	if err != nil {
-		log.Panicf("Error converting environment variable %s to uint64: %v", key, err)
+		utils.Log(utils.PanicLog, utils.SystemModule, fmt.Sprintf("Error converting environment variable %s to uint64: %v", key, err))
 	}
 	return value
 }
@@ -58,7 +59,7 @@ func parseIntEnv(key string, bitSize int) int {
 	valueStr := getEnvOrPanic(key)
 	value, err := strconv.ParseInt(valueStr, 10, bitSize)
 	if err != nil {
-		log.Panicf("Error converting environment variable %s to int: %v", key, err)
+		utils.Log(utils.PanicLog, utils.SystemModule, fmt.Sprintf("Error converting environment variable %s to int: %v", key, err))
 	}
 	return int(value)
 }
