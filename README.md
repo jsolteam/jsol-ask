@@ -57,7 +57,7 @@ DATABASE_PATH=*путь к файлу sqlite*
 TELEGRAM_BOT_TOKEN=*токен бота*
 GROUP_ID=*ID супер-группы*
 GENERAL_THREAD=*ID главной темы*
-SUPERADMIN_ID=*ID главного администратора*
+SUPER_ADMIN_ID=*ID главного администратора*
 ```
 
 ### Релизы
